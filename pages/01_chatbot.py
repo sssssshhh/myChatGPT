@@ -102,8 +102,8 @@ st.markdown(
 with st.sidebar:
     OPENAI_API_KEY = st.text_input("Write your OPEN API KEY")
     if OPENAI_API_KEY:
-        st.secrets = {"OPENAI_API_KEY": OPENAI_API_KEY}
-        st.write(st.secrets["OPENAI_API_KEY"])
+        os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+        os.environ["OPENAI_API_KEY"]
     link = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT" )
     file = st.file_uploader("upload a txt, docx or pdf files", 
                             type=["txt", "pdf", "docx"],
