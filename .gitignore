@@ -1,3 +1,6 @@
 env/
 .env
-.cache
+.cache/
+.streamlit/
+RAG_edit.ipynb
+pages/02_DocumentGPT.py
