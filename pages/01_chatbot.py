@@ -86,6 +86,7 @@ final_prompt= ChatPromptTemplate.from_messages([
         
         Context: {context}
         """),
+        MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{question}"),
     ])
 
@@ -110,8 +111,12 @@ if file:
         chain = {
             "context": retriever | RunnableLambda(format_docs),
             "question": RunnablePassthrough(),
+            "chat_history": RunnableLambda(load_memory)
             } | final_prompt | llm
         with st.chat_message("ai"):
             response = chain.invoke(message)
+            memory.save_context(
+                {"input": message},
+                {"output": response.content})
 else:
     st.session_state["messages"] = []
