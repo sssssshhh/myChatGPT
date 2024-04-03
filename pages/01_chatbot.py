@@ -10,6 +10,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.memory import ConversationBufferMemory
+from langchain.vectorstores.faiss import FAISS
 
 class ChatCallbackHandler(BaseCallbackHandler):
     message = ""
@@ -57,7 +58,7 @@ def embed_files(file):
     embeddings = OpenAIEmbeddings()
     cached_embeddings = CacheBackedEmbeddings.from_bytes_store(
         embeddings, cache_dir)
-    vectorstore = Chroma.from_documents(
+    vectorstore = FAISS.from_documents(
         docs, cached_embeddings)
     retriever = vectorstore.as_retriever()
     return retriever
