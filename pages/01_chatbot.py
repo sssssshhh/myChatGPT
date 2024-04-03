@@ -41,11 +41,8 @@ def load_memory(_):
 @st.cache_resource
 def embed_files(file):
     file_content = file.read()
-    print(file_content)
-    file_path = os.path.dirname(f"./.cache/files/{file.name}")
-    
-    if not os.path.exists(file_path):
-        file_path = os.makedirs(file_path)
+    # 업로드한 파일의 저장장소
+    file_path = f"./.cache/files/{file.name}"
     with open(file_path, "wb") as f:
         f.write(file_content)
 
