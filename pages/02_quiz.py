@@ -304,8 +304,8 @@ with st.sidebar:
     if OPENAI_API_KEY:
         os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
         os.environ["OPENAI_API_KEY"]
-    link = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT/blob/main/pages/02_quiz.py" )
-
+    gitLink = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT/blob/main/pages/02_quiz.py" )
+    streamlitLink = st.link_button(label="Go to the Streamlit App", url="https://myfirstaichatbot.streamlit.app")
     docs = None
     topic = None
     
