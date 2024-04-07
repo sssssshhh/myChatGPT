@@ -268,6 +268,11 @@ def make_quiz_by_level(_level):
 def split_file(file):
     file_content = file.read()
     file_path = f"./.cache/quiz_files/{file.name}"
+    directory = os.path.dirname(file_path)
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     with open(file_path, "wb") as f:
         f.write(file_content)
 
@@ -299,7 +304,7 @@ with st.sidebar:
     if OPENAI_API_KEY:
         os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
         os.environ["OPENAI_API_KEY"]
-    link = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT" )
+    link = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT/blob/main/pages/02_quiz.py" )
 
     docs = None
     topic = None
