@@ -336,26 +336,32 @@ else:
             horizontal=True,
             index=None,
         )
+    
+    if st.session_state.get(f"quiz_completed_{level}_{topic or file.name}", False):
+        st.success("Congratulations! You've successfully completed the quiz. 🎉")
+        st.balloons()
+    else:
+        if level:
+            response = run_quiz_chain(docs, level, topic if topic else file.name)
+            correct_answers_count = 0
 
-    if level:
-        response = run_quiz_chain(docs, level, topic if topic else file.name)
-        correct_answers_count = 0
+            with st.form("question_form_{level}_{topic}"):
+                for question in json.loads(response)["questions"]:
+                    st.write(question["question"])
+                    value = st.radio(
+                        "Select an option.",
+                        [answer["answer"] for answer in question["answers"]],
+                        index=None,
+                    )
 
-        with st.form("question_form_{level}_{topic}"):
-            for question in json.loads(response)["questions"]:
-                value = st.radio(
-                    "Select an option.",
-                    [answer["answer"] for answer in question["answers"]],
-                    index=None,
-                )
-
-                if {"answer":value, "correct": True} in question["answers"]:
-                    st.success("Correct!")
-                    correct_answers_count += 1
-                elif value is not None:
-                    st.error("Incorrect..")
-            button = st.form_submit_button()
-            if button:
-                if correct_answers_count == len(json.loads(response)["questions"]):
-                    st.balloons()
-                    button = st.form_submit_button(disabled=True)
+                    if {"answer":value, "correct": True} in question["answers"]:
+                        st.success("Correct!")
+                        correct_answers_count += 1
+                    elif value is not None:
+                        st.error("Incorrect..")
+                button = st.form_submit_button()
+                if button:
+                    if correct_answers_count == len(json.loads(response)["questions"]):
+                        st.session_state[f"quiz_completed_{level}_{topic or file.name}"] = True
+                        st.rerun()
+                       
