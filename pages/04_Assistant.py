@@ -12,7 +12,7 @@ with st.sidebar:
     if OPENAI_API_KEY:
         os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
         os.environ["OPENAI_API_KEY"]
-    gitLink = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT/blob/main/pages/03_Sitemap.py" )
+    gitLink = st.link_button(label="Go to Github Repo", url="https://github.com/sssssshhh/myChatGPT/blob/main/pages/04_Assistant.py" )
     streamlitLink = st.link_button(label="Go to the Streamlit App", url="https://myfirstaichatbot.streamlit.app")
 
 def read_file_content(file_path):
